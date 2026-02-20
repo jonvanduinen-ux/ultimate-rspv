@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --grass: #2d5a1b;
+  --grass-light: #3d7a26;
+  --lime: #b8f03a;
+  --lime-dark: #94c22d;
+  --white: #f5f5f0;
+  --off-white: #e8e8e0;
+  --dark: #0e1a08;
+  --mid: #1a2e10;
+  --text-dim: #7a9e6a;
+  --red: #e84444;
+  --gold: #f5c842;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--dark);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  position: relative;
+}
+
+/* Noise texture overlay */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Header */
+.header {
+  padding: 48px 0 24px;
+  text-align: center;
+  position: relative;
+}
+
+.disc-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 8px;
+  animation: spin-disc 12s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes spin-disc {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 88px;
+  line-height: 0.85;
+  letter-spacing: 6px;
+  color: var(--lime);
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* Game info */
+.game-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--mid);
+  border: 1px solid var(--grass-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+
+.game-date-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.game-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.game-date {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--white);
+}
+
+.spots-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--lime);
+  color: var(--dark);
+  letter-spacing: 0.5px;
+  transition: background 0.3s;
+}
+
+.spots-badge[data-full="true"] {
+  background: var(--red);
+  color: white;
+}
+
+/* RSVP Form */
+.rsvp-section {
+  margin: 8px 0 32px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.name-input {
+  width: 100%;
+  padding: 16px 18px;
+  background: var(--mid);
+  border: 2px solid var(--grass-light);
+  border-radius: 10px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.name-input::placeholder {
+  color: var(--text-dim);
+}
+
+.name-input:focus {
+  border-color: var(--lime);
+}
+
+.btn-join {
+  width: 100%;
+  padding: 16px;
+  background: var(--lime);
+  color: var(--dark);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-join:hover:not(:disabled) {
+  background: var(--lime-dark);
+  transform: translateY(-1px);
+}
+
+.btn-join:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-join:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--red);
+  text-align: center;
+  padding: 4px 0;
+}
+
+/* My status */
+.my-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-badge {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.status-badge.confirmed {
+  background: rgba(184, 240, 58, 0.12);
+  border: 1.5px solid var(--lime);
+  color: var(--lime);
+}
+
+.status-badge.waitlist {
+  background: rgba(245, 200, 66, 0.1);
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+}
+
+.btn-dropout {
+  padding: 14px 16px;
+  background: transparent;
+  border: 1.5px solid #444;
+  border-radius: 10px;
+  color: var(--text-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-dropout:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* Players list */
+.players-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.list-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count {
+  color: var(--lime);
+}
+
+.player-ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.player-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  background: var(--mid);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.player-item.is-me {
+  border-color: var(--lime);
+  background: rgba(184, 240, 58, 0.05);
+}
+
+.player-item.waitlisted {
+  opacity: 0.6;
+}
+
+.player-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  width: 20px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.player-name {
+  font-size: 15px;
+  font-weight: 400;
+  flex: 1;
+}
+
+.you-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--lime);
+  background: rgba(184, 240, 58, 0.1);
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Loading */
+.loading-dots {
+  display: flex;
+  gap: 6px;
+  padding: 16px 0;
+  justify-content: center;
+}
+
+.loading-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 60%, 100% { opacity: 0.2; transform: scale(1); }
+  30% { opacity: 1; transform: scale(1.2); }
+}
+
+.empty-msg {
+  font-size: 14px;
+  color: var(--text-dim);
+  padding: 16px 0;
+  font-style: italic;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 48px;
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #3a5a2a;
+  text-transform: uppercase;
+}
+
+/* PWA meta color match */
+@media (display-mode: standalone) {
+  .header {
+    padding-top: 60px;
+  }
+}
