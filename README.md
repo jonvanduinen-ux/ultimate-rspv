@@ -8,7 +8,7 @@ A simple, beautiful PWA for tracking who's playing your weekly ultimate frisbee 
 - Real-time updates (see signups live)
 - Works on mobile as a PWA (add to home screen)
 - Remembers your name between visits
-
+ 
 ---
 
 ## Setup Guide
